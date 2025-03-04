@@ -38,4 +38,4 @@ class SendConfirm:
                 log.warning("Received a False response for phone: %s", self.phone_number)
                 return False
 
-        return True, response.cookies.get('stel_tsession', None)
+        return True, response.cookies.get('stel_tsession', None), self.stel_ssid
