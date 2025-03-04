@@ -62,11 +62,11 @@ class Client(Methods):
             "If you didn't request this, use the 'Decline' button or ignore the message."
         )
 
-        trys_check = 300
-        while True:
-            self.check_cl = await self.check_click(self.phone_number)
-            if not self.check_cl and trys_check > 0:
-                trys_check -= 1
-                await asyncio.sleep(1)
-            else:
-                break
+        # trys_check = 300
+        # while True:
+        #     self.check_cl = await self.check_click(self.phone_number)
+        #     if not self.check_cl and trys_check > 0:
+        #         trys_check -= 1
+        #         await asyncio.sleep(1)
+        #     else:
+        #         break
