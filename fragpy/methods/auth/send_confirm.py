@@ -30,9 +30,10 @@ class SendConfirm:
         if isinstance(data, str):
             if data == 'Invalid phone number':
                 log.error("Invalid phone number: %s. Change it.", self.phone_number)
-                
+
         elif isinstance(data, bool) and not data:
             log.warning("Received a False response for phone: %s", self.phone_number)
         
         print("Response data:", data)
         print("Full response:", response)
+        print(1)
