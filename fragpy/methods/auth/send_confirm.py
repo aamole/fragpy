@@ -36,4 +36,4 @@ class SendConfirm:
         
         print("Response data:", data)
         print("Full response:", response)
-        print(1)
+        print(0)
