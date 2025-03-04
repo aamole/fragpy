@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+
+venv/
+
+*-shm
+*-wal
+
+settings.json
+
+t_*
