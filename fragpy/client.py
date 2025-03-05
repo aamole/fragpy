@@ -16,7 +16,7 @@ class Client(Methods):
     BASE_URL = "https://fragment.com"
 
     def __init__(self, name: str, session_string: str = None, in_memory: bool = None, 
-                 phone_number: str = None, no_updates: bool = None):
+                 phone_number: str = None, no_updates: bool = None, logger: bool = None):
         super().__init__() 
         self.name = name
         self.session_string = session_string
@@ -24,7 +24,6 @@ class Client(Methods):
         self.phone_number = phone_number
         self.no_updates = no_updates
         self.timeout = None
-
     async def get_phone_number(self):
         """Get phone number."""
         while True:
@@ -41,8 +40,8 @@ class Client(Methods):
         if not self.phone_number:
             self.phone_number = await self.get_phone_number()
 
-        self.status, self.stel_tsession, self.stel_ssid = await self.send_confirm(self.phone_number)
-
+        _, ssid, tsession = await self.send_confirm(self.phone_number)
+    
         print(
             f"Confirm login via Telegram with ({self.phone_number})\n"
             "To authorize this request, use the 'Confirm' button.\n"
@@ -52,14 +51,13 @@ class Client(Methods):
         max_attempts = 300
 
         for i in range(max_attempts):
-            check_cl, token = await self.check_confirm(
-                self.phone_number, 
-                self.stel_ssid,
-                self.stel_tsession
+            check_cl, self.stel_token = await self.check_confirm(
+                phone_number=self.phone_number, 
+                stel_ssid=ssid,
+                stel_tsession=tsession
             )
-            print(token, check_cl)
-            if check_cl and i > 10:
+            print(self.stel_token, check_cl)
+            if check_cl:
                 break
             await asyncio.sleep(1)
-        self.stel_token = token.get('stel_token', None)
         print(self.stel_token)

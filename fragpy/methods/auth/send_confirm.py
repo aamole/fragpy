@@ -27,7 +27,10 @@ class SendConfirm:
             headers=fragpy.headers,
             params=fragpy.params
         )
-
+        cookies = response.cookies
+        stel_ssid = cookies.get("stel_ssid").value if "stel_ssid" in cookies else None
+        stel_tsession = cookies.get("stel_tsession").value if "stel_tsession" in cookies else None
+    
         if isinstance(data, str):
             if data == 'Invalid phone number':
                 log.error("Invalid phone number: %s. Change it.", self.phone_number)
@@ -38,4 +41,4 @@ class SendConfirm:
                 log.warning("Received a False response for phone: %s", self.phone_number)
                 return False
 
-        return True, response.cookies.get('stel_tsession', None), self.stel_ssid
+        return True, stel_ssid, stel_tsession

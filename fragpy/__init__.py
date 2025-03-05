@@ -1,3 +1,4 @@
+import logging
 __version__ = "0.0.1"
 
 oauth: str = "https://oauth.telegram.org{}".format
